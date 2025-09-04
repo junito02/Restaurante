@@ -1,0 +1,145 @@
+html {
+  scroll-behavior: smooth;
+}
+
+/* Si tu navbar es fija, evita que tape el contenido */
+section {
+  scroll-margin-top: 80px; /* ajusta según la altura de la navbar */
+}
+
+/* Navbar centrada y estrecha */
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  position: fixed;
+  width: 70%; /* menos ancho que la pantalla */
+  max-width: 1000px; /* opcional para pantallas grandes */
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%); /* centra horizontalmente */
+  background: rgba(8, 9, 11, 0.85); /* semi-transparente */
+  color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  z-index: 10;
+  transition: 0.3s;
+}
+
+/* Hover de la navbar */
+.nav:hover {
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+}
+
+/* Logo */
+.nav h1 {
+  font-size: 1.8rem;
+  font-weight: bold;
+  cursor: pointer;
+  letter-spacing: 1px;
+}
+
+/* Lista de links */
+.nav-list {
+  list-style: none;
+  display: flex;
+  gap: 25px;
+}
+
+/* Links */
+.nav-list li a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: 500;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: 0.3s;
+}
+
+/* Hover links */
+.nav-list li a:hover {
+  background-color: #ff9800;
+  color: #08090b;
+}
+
+/* Fondo */
+.bg-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  z-index: -1; /* Debajo de la navbar */
+  pointer-events: none; /* Permite que los clics pasen a la navbar */
+}
+
+.bg-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* ----------------------- NAVBAR RESPONSIVE ----------------------- */
+
+/* Hamburger menu button oculto por defecto */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  gap: 5px;
+}
+
+.hamburger span {
+  display: block;
+  width: 25px;
+  height: 3px;
+  background-color: #fff;
+  border-radius: 3px;
+  transition: 0.3s;
+}
+
+/* Responsive: cuando la pantalla es menor a 768px */
+@media (max-width: 768px) {
+  .nav {
+    width: 90%;
+    padding: 10px 20px;
+  }
+
+  /* Ocultar lista de links inicialmente */
+  .nav-list {
+    position: absolute;
+    top: 70px; /* debajo de la navbar */
+    left: 0;
+    width: 100%;
+    flex-direction: column;
+    background: rgba(8, 9, 11, 0.95);
+    gap: 0;
+    overflow: hidden;
+    max-height: 0; /* oculta el menú */
+    transition: max-height 0.3s ease-in-out;
+    border-radius: 0 0 15px 15px;
+  }
+
+  .nav-list li {
+    width: 100%;
+    text-align: center;
+    margin: 10px 0;
+  }
+
+  .nav-list li a {
+    display: block;
+    width: 100%;
+    padding: 12px 0;
+  }
+
+  /* Mostrar el hamburger */
+  .hamburger {
+    display: flex;
+  }
+
+  /* Cuando el menú está activo */
+  .nav-list.active {
+    max-height: 500px; /* ajusta según cantidad de links */
+  }
+}

@@ -1,0 +1,65 @@
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Footer */
+.foter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 10px;
+  background-color: black; /* Sin fondo */
+  gap: 15px;
+}
+
+.foter-icon-contenedor {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+}
+
+.foter-icon-contenedor a svg {
+  width: 32px;
+  height: 32px;
+  transition: transform 0.3s;
+}
+
+.foter-icon-contenedor a:hover svg {
+  transform: scale(1.2);
+}
+
+.icon.whatsapp svg {
+  fill: #25d366;
+}
+
+.icon.instagram svg {
+  fill: #e1306c;
+}
+
+.icon.youtube svg {
+  fill: #ff0000;
+}
+
+.icon#email svg {
+  fill: #0072c6;
+}
+
+.icon#linkedin svg {
+  fill: #0077b5;
+}
+
+.text-c {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.footer-text {
+  font-size: 14px;
+  color: white;
+}

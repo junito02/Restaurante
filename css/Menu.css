@@ -1,0 +1,234 @@
+/* =========================
+   RESET Y BASE
+========================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+html,
+body {
+  width: 100%;
+  overflow-x: hidden;
+  background-color: rgb(45, 43, 43); /* fondo oscuro en toda la página */
+  color: white;
+}
+
+/* =========================
+   SECCIÓN MENU
+========================= */
+#Menu {
+  width: 100%;
+  min-height: 100vh;
+  padding: 80px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  box-sizing: border-box;
+  color: black;
+}
+
+/* Título */
+#Menu h3 {
+  font-size: 3.5rem;
+  margin-bottom: 60px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+/* =========================
+   CONTENEDOR DE PLATILLOS
+========================= */
+.menu-cards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  justify-items: center;
+  width: 100%;
+  max-width: 1200px;
+  gap: 30px;
+  padding-bottom: 40px; /* espacio inferior */
+}
+
+/* =========================
+   PLATILLO INDIVIDUAL
+========================= */
+.platillo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.platillo img {
+  width: 100%;
+  max-width: 300px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.platillo:hover img {
+  transform: scale(1.05);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35);
+}
+
+.platillo .description {
+  margin: 12px 0 10px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.7);
+}
+
+/* BOTÓN */
+.platillo .view-recipe-btn {
+  padding: 10px 20px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.platillo .view-recipe-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+  background: linear-gradient(135deg, #764ba2, #667eea);
+}
+/* =========================
+   MODAL RECETA
+========================= */
+.modal {
+  display: none; /* oculto por defecto */
+  position: fixed; /* lo mantiene fijo en la ventana */
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6); /* fondo semi-transparente */
+  justify-content: center; /* centra horizontalmente */
+  align-items: center; /* centra verticalmente */
+  z-index: 1000;
+  display: flex; /* activa flexbox */
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 20px;
+  max-width: 800px;
+  width: 90%;
+  border-radius: 10px;
+  position: relative;
+  color: black;
+}
+
+/* Video responsive */
+#modal-video-container iframe {
+  width: 100%;
+  height: 450px;
+  border: none;
+}
+
+/* Botón de cerrar */
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 25px;
+  cursor: pointer;
+}
+/* Modal fade-in/fade-out */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.modal.show {
+  opacity: 1;
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 20px;
+  max-width: 800px;
+  width: 90%;
+  border-radius: 10px;
+  position: relative;
+  color: black;
+}
+
+#modal-video-container iframe {
+  width: 100%;
+  height: 450px;
+  border: none;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 25px;
+  cursor: pointer;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 1024px) {
+  .platillo img {
+    height: 180px;
+  }
+}
+
+@media (max-width: 768px) {
+  #Menu {
+    padding: 50px 15px;
+  }
+  .platillo img {
+    height: 160px;
+    max-width: 250px;
+  }
+}
+
+@media (max-width: 480px) {
+  #Menu {
+    padding: 30px 10px;
+  }
+  .menu-cards-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+  .platillo img {
+    height: 140px;
+    max-width: 220px;
+  }
+  .platillo .description {
+    font-size: 0.95rem;
+  }
+  .platillo .view-recipe-btn {
+    font-size: 0.8rem;
+    padding: 8px 16px;
+  }
+}
