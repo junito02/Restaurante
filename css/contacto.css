@@ -1,40 +1,61 @@
 #contacto {
   width: 100%;
-  padding: 15px 10px; /* sección compacta */
-  background-color: #1a1a1a;
-  color: white;
+  padding: 50px 20px;
+  background: url("../img/restaurante.jpg") no-repeat center center;
+  background-size: cover;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   box-sizing: border-box;
+  position: relative;
+  color: white;
 }
 
+/* Capa semi-transparente para que el fondo no opaque los iconos */
+#contacto::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* ajuste la opacidad según convenga */
+  z-index: 1;
+}
+
+.contacto-content {
+  position: relative;
+  z-index: 2; /* para que esté encima del overlay */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Título */
 .contacto-content h5 {
-  margin-bottom: 12px;
-  font-size: 1.3rem;
+  font-size: 3rem;
   text-align: center;
-  font-weight: 600;
+  margin-bottom: 50px;
   text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.7);
-  font-size: 100px;
-  margin-bottom: 150px;
 }
 
+/* Iconos */
 .contact-icons {
   display: flex;
-  gap: 35px; /* más espacio entre iconos */
+  gap: 35px;
   justify-content: center;
   align-items: center;
 }
 
 .icon svg {
-  width: 150px; /* iconos más grandes */
-  height: 60px;
+  width: 80px;
+  height: 80px;
   transition: transform 0.3s;
 }
 
 .icon:hover svg {
-  transform: scale(1.3);
+  transform: scale(1.2);
 }
 
 /* Colores específicos */
@@ -50,35 +71,23 @@
 
 /* Responsive */
 @media (max-width: 768px) {
-  .contact-icons {
-    gap: 25px;
+  .contacto-content h5 {
+    font-size: 2.2rem;
+    margin-bottom: 30px;
   }
   .icon svg {
-    width: 45px;
-    height: 45px;
-  }
-}
-
-@media (max-width: 700px) {
-  .contacto-content h5 {
-    margin-bottom: 12px;
-    font-size: 1.3rem;
-    text-align: center;
-    font-weight: 600;
-    text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.7);
-    font-size: 50px;
-    margin-bottom: 150px;
+    width: 60px;
+    height: 60px;
   }
 }
 
 @media (max-width: 480px) {
   .contacto-content h5 {
-    margin-bottom: 12px;
-    font-size: 1.3rem;
-    text-align: center;
-    font-weight: 600;
-    text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.7);
-    font-size: 50px;
-    margin-bottom: 150px;
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+  }
+  .icon svg {
+    width: 50px;
+    height: 50px;
   }
 }
