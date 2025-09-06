@@ -12,7 +12,7 @@
   color: white;
 }
 
-/* Capa semi-transparente para que el fondo no opaque los iconos */
+
 #contacto::before {
   content: "";
   position: absolute;
@@ -20,19 +20,18 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* ajuste la opacidad según convenga */
-  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.5); 
 }
 
 .contacto-content {
   position: relative;
-  z-index: 2; /* para que esté encima del overlay */
+  z-index: 2;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-/* Título */
+
 .contacto-content h5 {
   font-size: 3rem;
   text-align: center;
@@ -58,7 +57,7 @@
   transform: scale(1.2);
 }
 
-/* Colores específicos */
+
 .whatsapp svg {
   fill: #25d366;
 }

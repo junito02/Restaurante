@@ -1,3 +1,4 @@
+// Scroll suave al dar clic en el navbar
 document.querySelectorAll('nav a[href^="#"]').forEach((link) => {
   link.addEventListener("click", function (e) {
     e.preventDefault();
@@ -9,20 +10,66 @@ document.querySelectorAll('nav a[href^="#"]').forEach((link) => {
   });
 });
 
-const fetchApi = async () => {
+// Mostrar loading
+const showLoading = () => {
+  const container = document.querySelector(".menu-cards-container");
+  container.innerHTML = `
+    <div class="loading">
+      <div class="spinner"></div>
+      <p>Cargando platillos...</p>
+    </div>
+  `;
+};
+
+// Obtener platillos iniciales (ejemplo con letra "c")
+const fetchApi = async (letter = "c") => {
+  showLoading();
+
   try {
     const response = await fetch(
-      "https://www.themealdb.com/api/json/v1/1/search.php?f=c"
+      `https://www.themealdb.com/api/json/v1/1/search.php?f=${letter}`
     );
     const data = await response.json();
 
-    const limitedMeals = data.meals.slice(0, 8);
-    displayPlatillos(limitedMeals);
+    if (data.meals) {
+      const limitedMeals = data.meals.slice(0, 8);
+      displayPlatillos(limitedMeals);
+    } else {
+      document.querySelector(".menu-cards-container").innerHTML = `
+        <p class="error">No se encontraron platillos con esa letra.</p>
+      `;
+    }
   } catch (error) {
     console.error("Error al obtener datos:", error);
+    document.querySelector(".menu-cards-container").innerHTML = `
+      <p class="error">Error al cargar los platillos. Intenta de nuevo.</p>
+    `;
   }
 };
 
+// Buscar platillos por nombre
+const searchMeals = async (query) => {
+  showLoading();
+
+  try {
+    const response = await fetch(
+      `https://www.themealdb.com/api/json/v1/1/search.php?s=${query}`
+    );
+    const data = await response.json();
+
+    if (data.meals) {
+      displayPlatillos(data.meals);
+    } else {
+      document.querySelector(".menu-cards-container").innerHTML = `
+        <p class="error">No se encontraron resultados para "${query}".</p>
+      `;
+    }
+  } catch (error) {
+    console.error("Error en búsqueda:", error);
+  }
+};
+
+// Mostrar platillos en la página
 const displayPlatillos = (meals) => {
   const container = document.querySelector(".menu-cards-container");
   container.innerHTML = "";
@@ -42,8 +89,15 @@ const displayPlatillos = (meals) => {
 
     container.appendChild(platillo);
   });
+
+  // 👇 Al mostrar resultados, hacer scroll a la sección del menú
+  document.querySelector("#Menu").scrollIntoView({
+    behavior: "smooth",
+    block: "start",
+  });
 };
 
+// Abrir modal con video
 const openModal = async (mealId) => {
   try {
     const response = await fetch(
@@ -60,9 +114,15 @@ const openModal = async (mealId) => {
 
     modalTitle.textContent = meal.strMeal;
 
-    const videoId = meal.strYoutube.split("v=")[1];
-    const embedUrl = `https://www.youtube.com/embed/${videoId}`;
-    modalVideoContainer.innerHTML = `<iframe src="${embedUrl}" allowfullscreen></iframe>`;
+    let videoId = "";
+    if (meal.strYoutube && meal.strYoutube.includes("v=")) {
+      videoId = meal.strYoutube.split("v=")[1];
+    }
+    const embedUrl = videoId ? `https://www.youtube.com/embed/${videoId}` : "";
+
+    modalVideoContainer.innerHTML = embedUrl
+      ? `<iframe src="${embedUrl}" allowfullscreen></iframe>`
+      : `<p>No hay video disponible.</p>`;
 
     modal.style.display = "flex";
     modal.classList.add("show");
@@ -76,7 +136,6 @@ const openModal = async (mealId) => {
         modalVideoContainer.innerHTML = "";
         document.body.style.overflow = "";
       }, 300);
-      t;
     };
 
     document.querySelector(".close-btn").onclick = closeModal;
@@ -88,4 +147,26 @@ const openModal = async (mealId) => {
   }
 };
 
-document.addEventListener("DOMContentLoaded", fetchApi);
+// 👉 Conectar el buscador
+document.addEventListener("DOMContentLoaded", () => {
+  // Cargar platillos por defecto
+  fetchApi();
+
+  const searchInput = document.querySelector(".search-input");
+  const searchBtn = document.querySelector(".search-btn");
+
+  // Buscar al dar clic en el botón
+  searchBtn.addEventListener("click", () => {
+    const value = searchInput.value.trim();
+    if (value) searchMeals(value);
+  });
+
+  // Buscar al presionar Enter
+  searchInput.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      const value = searchInput.value.trim();
+      if (value) searchMeals(value);
+    }
+  });
+});
